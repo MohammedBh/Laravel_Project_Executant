@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Avatar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AvatarController extends Controller
 {
@@ -14,7 +15,8 @@ class AvatarController extends Controller
      */
     public function index()
     {
-        //
+        $avatars = Avatar::all();
+        return view('pages.avatars.avatars', compact('avatars'));
     }
 
     /**
@@ -35,7 +37,13 @@ class AvatarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $store = new Avatar;
+        Storage::put('public/img/', $request->file('src'));
+        $store->name = $request->name;
+        $store->src = $request->file('src')->hashName();
+        $name = $request->name;
+        $store->save();
+        return redirect('/avatar')->with('success', $name.' a été créé avec succès !');
     }
 
     /**

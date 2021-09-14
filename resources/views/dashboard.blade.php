@@ -35,8 +35,7 @@
                     </p>
                     <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">E-mail : {{ Auth::user()->email }}</p>
                     <div class="flex justify-between mt-3 item-center">
-                        <button
-                            class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Edit Profile</button>
+                        <a class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600" href="/user/{{Auth::user()->id}}/edit">Edit Profile</a>
                     </div>
                 </div>
             </div>

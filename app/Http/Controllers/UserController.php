@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Avatar;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -56,7 +58,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $avatars = Avatar::all();
+        return view('pages.dashboard.edit', compact('avatars'));
     }
 
     /**
@@ -68,7 +71,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $update = User::find($id);
+        $update->name = $request->name;
+        $update->lastname = $request->lastname;
+        $update->age = $request->age;
+        $update->avatar_id = $request->avatar_id;
+        $update->email = $request->email;
+        $update->save();
+        return redirect('/dashboard');
+
     }
 
     /**
