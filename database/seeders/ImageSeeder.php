@@ -28,7 +28,7 @@ class ImageSeeder extends Seeder
                 'category_id' => 3
             ],
             [
-                'src' => 'vehicle.png',
+                'src' => 'car.png',
                 'category_id' => 4
             ],
             [

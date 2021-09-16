@@ -33,15 +33,12 @@ Route::get('/gallery', function () {
     return view('pages.gallery.index', compact('images'));
 });
 
-Route::get('/users', function () {
-    $users = User::all();
-    return view('pages.users.index', compact('users'));
-});
-
 Route::resource('user', DashboardController::class);
-Route::resource('avatar', AvatarController::class);
-Route::resource('category', CategoryController::class);
-Route::resource('image', ImageController::class);
-Route::resource('users', UserController::class);
+
+
+Route::resource('avatar', AvatarController::class)->middleware(['admin']);
+Route::resource('category', CategoryController::class)->middleware(['admin']);
+Route::resource('image', ImageController::class)->middleware(['admin']);
+Route::resource('users', UserController::class)->middleware(['admin']);
 
 require __DIR__.'/auth.php';

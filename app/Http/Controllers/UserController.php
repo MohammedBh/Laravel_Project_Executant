@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Avatar;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin')->only(['index', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -62,7 +68,8 @@ class UserController extends Controller
     {
         $users = User::find($id);
         $avatars = Avatar::all();
-        return view('pages.users.edit', compact('users', 'avatars'));
+        $roles = Role::all();
+        return view('pages.users.edit', compact('users', 'avatars', 'roles'));
     }
 
     /**
@@ -79,6 +86,7 @@ class UserController extends Controller
         $update->lastname = $request->lastname;
         $update->age = $request->age;
         $update->avatar_id = $request->avatar_id;
+        $update->role_id = $request->role_id;
         $update->email = $request->email;
         $update->save();
         return redirect('/users')->with('success', 'Profile mis à jour !');
@@ -93,8 +101,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         $destroy = User::find($id);
-        $destroy -> delete();
+        $destroy->delete();
         $name = $destroy->name;
-        return redirect('/users')->with('success', $name.' a été supprimé avec succès !');
+        return redirect('/users')->with('success', $name . ' a été supprimé avec succès !');
     }
 }
