@@ -16,8 +16,28 @@ class ImageSeeder extends Seeder
     {
         DB::table('images')->insert([
             [
-                'src' => 'pizza.jpg',
+                'src' => 'art.png',
+                'category_id' => 1
+            ],
+            [
+                'src' => 'nature.png',
+                'category_id' => 2
+            ],
+            [
+                'src' => 'animal.png',
+                'category_id' => 3
+            ],
+            [
+                'src' => 'vehicle.png',
+                'category_id' => 4
+            ],
+            [
+                'src' => 'food.png',
                 'category_id' => 5
+            ],
+            [
+                'src' => 'building.png',
+                'category_id' => 6
             ]
         ]);
     }

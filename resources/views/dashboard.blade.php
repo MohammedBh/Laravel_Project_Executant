@@ -32,7 +32,7 @@
                     <h1 class="text-2xl font-bold text-gray-800 dark:text-white">
                         {{ Auth::user()->name . ' ' . Auth::user()->lastname }}</h1>
 
-                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Age : {{ Auth::user()->age }} | <span
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Age : {{ Auth::user()->age }} | Role : <span
                         class="@if (Auth::user()->role_id == 1) text-red-500 font-semibold @else font-semibold text-green-500 @endif">{{ Auth::user()->roles->role }}</span></p>
                     <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">E-mail : {{ Auth::user()->email }}</p>
                     <div class="flex justify-between mt-3 item-center">

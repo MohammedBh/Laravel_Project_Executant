@@ -20,8 +20,24 @@ class AvatarSeeder extends Seeder
                 'src' => 'male.png'
             ],
             [
+                'name' => 'Male 2',
+                'src' => 'male2.png'
+            ],
+            [
+                'name' => 'Male 3',
+                'src' => 'male3.png'
+            ],
+            [
                 'name' => 'Female',
                 'src' => 'female.png'
+            ],
+            [
+                'name' => 'Female 2',
+                'src' => 'female2.png'
+            ],
+            [
+                'name' => 'Female 2',
+                'src' => 'female3.png'
             ],
         ]);
     }

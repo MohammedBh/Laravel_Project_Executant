@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Avatar;
+use App\Models\Dashboard;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        $avatars = Avatar::all();
-        return view('pages.users.index', compact('users', 'avatars'));
+        //
     }
 
     /**
@@ -25,9 +24,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        // 
+        //
     }
 
     /**
@@ -44,10 +43,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Dashboard $dashboard)
     {
         //
     }
@@ -55,21 +54,20 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $users = User::find($id);
         $avatars = Avatar::all();
-        return view('pages.users.edit', compact('users', 'avatars'));
+        return view('pages.dashboard.edit', compact('avatars'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -81,20 +79,17 @@ class UserController extends Controller
         $update->avatar_id = $request->avatar_id;
         $update->email = $request->email;
         $update->save();
-        return redirect('/users')->with('success', 'Profile mis à jour !');
+        return redirect('/dashboard')->with('success', 'Profile mis à jour !');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Dashboard $dashboard)
     {
-        $destroy = User::find($id);
-        $destroy -> delete();
-        $name = $destroy->name;
-        return redirect('/users')->with('success', $name.' a été supprimé avec succès !');
+        //
     }
 }

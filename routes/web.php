@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\UserController;
 use App\Models\Image;
@@ -37,12 +38,10 @@ Route::get('/users', function () {
     return view('pages.users.index', compact('users'));
 });
 
-Route::resource('user', UserController::class);
-
+Route::resource('user', DashboardController::class);
 Route::resource('avatar', AvatarController::class);
-
 Route::resource('category', CategoryController::class);
-
 Route::resource('image', ImageController::class);
+Route::resource('users', UserController::class);
 
 require __DIR__.'/auth.php';
