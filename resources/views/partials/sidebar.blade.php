@@ -1,4 +1,8 @@
-    <div class="flex flex-col w-64 h-screen py-8 bg-gray-800 border-r dark:bg-gray-800 dark:border-gray-600">
+    <div class="flex flex-col w-64 @if (Auth::user()->role_id === 1)
+        h-full
+        @else
+        h-screen
+    @endif py-8 bg-gray-800 border-r dark:bg-gray-800 dark:border-gray-600">
         <h2 class="text-3xl font-semibold text-center text-gray-800 dark:text-white">Google</h2>
 
         <div class="flex flex-col items-center mt-6 -mx-2">
