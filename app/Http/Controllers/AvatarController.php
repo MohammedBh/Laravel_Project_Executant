@@ -37,13 +37,18 @@ class AvatarController extends Controller
      */
     public function store(Request $request)
     {
-        $store = new Avatar;
-        Storage::put('public/img/', $request->file('src'));
-        $store->name = $request->name;
-        $store->src = $request->file('src')->hashName();
-        $name = $request->name;
-        $store->save();
-        return redirect('/avatar')->with('success', $name.' a été créé avec succès !');
+
+        if (Avatar::all()->count() === 6) {
+            return redirect()->back()->with('warning', "Il n'y a plus de place pour un avatar");
+        } else {
+            $store = new Avatar;
+            Storage::put('public/img/', $request->file('src'));
+            $store->name = $request->name;
+            $store->src = $request->file('src')->hashName();
+            $name = $request->name;
+            $store->save();
+            return redirect('/avatar')->with('success', $name . ' a été créé avec succès !');
+        }
     }
 
     /**
@@ -89,8 +94,13 @@ class AvatarController extends Controller
     public function destroy($id)
     {
         $destroy = Avatar::find($id);
+        foreach ($destroy->users as $user) {
+            $user->avatar_id = 1;
+            $user->save();
+        }
         $name = $destroy->name;
+        Storage::delete("public/img/".$destroy->src);
         $destroy->delete();
-        return redirect('/avatar')->with('success', "L'avatar ".$name." a été supprimé avec succès !");
+        return redirect('/avatar')->with('success', "L'avatar " . $name . " a été supprimé avec succès !");
     }
 }

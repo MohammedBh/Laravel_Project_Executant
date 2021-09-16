@@ -16,6 +16,10 @@ class AvatarSeeder extends Seeder
     {
         DB::table('avatars')->insert([
             [
+                'name' => 'None',
+                'src' => 'anonym.png'
+            ],
+            [
                 'name' => 'Male',
                 'src' => 'male.png'
             ],
@@ -34,11 +38,7 @@ class AvatarSeeder extends Seeder
             [
                 'name' => 'Female 2',
                 'src' => 'female2.png'
-            ],
-            [
-                'name' => 'Female 2',
-                'src' => 'female3.png'
-            ],
+            ]
         ]);
     }
 }
