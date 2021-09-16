@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Avatar;
-use App\Models\User;
+use App\Models\Category;
+use Database\Seeders\CategorySeeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        
+        $categories = Category::all();
+        return view('pages.categories.index', compact('categories'));
     }
 
     /**
@@ -36,16 +38,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $store = new Category;
+        $store->name = $request->name;
+        $name = $request->name;
+        $store->save();
+        return redirect('/category')->with('success', $name.' a été ajouté avec succès !');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
         //
     }
@@ -53,43 +59,42 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $avatars = Avatar::all();
-        return view('pages.dashboard.edit', compact('avatars'));
+        $edit = Category::find($id);
+        return view('pages.categories.edit', compact('edit'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $update = User::find($id);
+        $update = Category::find($id);
         $update->name = $request->name;
-        $update->lastname = $request->lastname;
-        $update->age = $request->age;
-        $update->avatar_id = $request->avatar_id;
-        $update->email = $request->email;
+        $name = $request->name;
         $update->save();
-        return redirect('/dashboard')->with('success', 'Profile mis à jour !');
-
+        return redirect('/category')->with('success', $name.' a été modifié avec succès !');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $destroy = Category::find($id);
+        $destroy -> delete();
+        $name = $destroy->name;
+        return redirect('/category')->with('success', 'La catégorie '.$name.' a été supprimé avec succès !');
     }
 }

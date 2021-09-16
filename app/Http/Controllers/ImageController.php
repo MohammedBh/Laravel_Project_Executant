@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Avatar;
-use App\Models\User;
+use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class UserController extends Controller
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        
+        $images = Image::all();
+        $categories = Category::all();
+        return view('pages.images.index', compact('images', 'categories'));
     }
 
     /**
@@ -25,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.images.create');
     }
 
     /**
@@ -36,16 +39,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $store = new Image;
+        Storage::put('public/img/', $request->file('src'));
+        $store->category_id = $request->category_id;
+        $store->src = $request->file('src')->hashName();
+        $store->save();
+        return redirect('/image')->with('success', 'Image créé avec succès !');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Image $image)
     {
         //
     }
@@ -53,43 +61,36 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Image $image)
     {
-        $avatars = Avatar::all();
-        return view('pages.dashboard.edit', compact('avatars'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Image $image)
     {
-        $update = User::find($id);
-        $update->name = $request->name;
-        $update->lastname = $request->lastname;
-        $update->age = $request->age;
-        $update->avatar_id = $request->avatar_id;
-        $update->email = $request->email;
-        $update->save();
-        return redirect('/dashboard')->with('success', 'Profile mis à jour !');
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $destroy = Image::find($id);
+        $destroy->delete();
+        return redirect('/image')->with('success', 'Image supprimé avec succès !');
     }
 }

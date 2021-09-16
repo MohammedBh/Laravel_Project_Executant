@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\UserController;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +27,22 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/gallery', function () {
+    $images = Image::all();
+    return view('pages.gallery.index', compact('images'));
+});
+
+Route::get('/users', function () {
+    $users = User::all();
+    return view('pages.users.index', compact('users'));
+});
+
 Route::resource('user', UserController::class);
 
 Route::resource('avatar', AvatarController::class);
+
+Route::resource('category', CategoryController::class);
+
+Route::resource('image', ImageController::class);
 
 require __DIR__.'/auth.php';

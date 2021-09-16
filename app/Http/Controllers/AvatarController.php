@@ -16,7 +16,7 @@ class AvatarController extends Controller
     public function index()
     {
         $avatars = Avatar::all();
-        return view('pages.avatars.avatars', compact('avatars'));
+        return view('pages.avatars.index', compact('avatars'));
     }
 
     /**
@@ -86,8 +86,11 @@ class AvatarController extends Controller
      * @param  \App\Models\Avatar  $avatar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Avatar $avatar)
+    public function destroy($id)
     {
-        //
+        $destroy = Avatar::find($id);
+        $name = $destroy->name;
+        $destroy->delete();
+        return redirect('/avatar')->with('success', "L'avatar ".$name." a été supprimé avec succès !");
     }
 }

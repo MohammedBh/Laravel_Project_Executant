@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Avatars') }}
         </h2>
     </x-slot>
 
@@ -47,23 +47,41 @@
                     </div>
                 </form>
             </section>
-            <section class="mt-8">
-                @foreach ($avatars as $avatar)
-                    <div class="flex max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-                        <div class="w-1/3 bg-cover">
-                            <img src="{{ asset('storage/img/' . $avatar->src) }}" alt="">
-                        </div>
+            <section>
+                <h1 class="text-center text-3xl mt-8 text-gray-700">Available Avatars</h1>
+                <div class="mt-10 grid grid-cols-4">
+                    @foreach ($avatars as $avatar)
+                        <div class="mb-5 max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+                            <div class=" bg-cover p-3">
+                                <img src="{{ asset('storage/img/' . $avatar->src) }}" alt="">
+                            </div>
 
-                        <div class="w-2/3 p-4 md:p-4">
-                            <h1 class="text-2xl font-bold text-gray-800 dark:text-white">{{$avatar->name}}</h1>
-
-                            <div class="flex justify-between mt-3 item-center">
-                                <button
-                                    class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded dark:bg-gray-700 hover:bg-red-500 hover:text-white">Delete</button>
+                            <div class="py-2">
+                                <form action="/avatar/{{ $avatar->id }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div>
+                                        <h1
+                                            class="text-center text-1xl
+                                        font-bold text-gray-800 dark:text-white">
+                                            {{ $avatar->name }}</h1>
+                                        <div class="justify-center flex">
+                                            <button type="submit"
+                                                class="px-8 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-red-500 rounded dark:bg-gray-700 hover:bg-red-400 hover:text-white"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-4"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </section>
         </section>
     </section>
