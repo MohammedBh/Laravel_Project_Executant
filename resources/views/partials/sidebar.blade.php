@@ -15,7 +15,7 @@
         </div>
 
         <div class="flex flex-col justify-between flex-1 mt-6">
-            <nav>
+            <nav class="sticky top-0">
                 <a class="flex items-center px-6 py-4 mt-3 text-white transition-colors duration-200 transform dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
                     href="{{ route('dashboard') }}">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
