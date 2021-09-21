@@ -60,6 +60,15 @@ class UserSeeder extends Seeder
                 'role_id' => 2,
                 'email' => 'member3@member.com',
                 'password' => Hash::make('member')
+            ],
+            [
+                'name' => 'Blogger',
+                'lastname' => 'Blg',
+                'age' => '34',
+                'avatar_id' => 3,
+                'role_id' => 3,
+                'email' => 'webmaster@webmaster.com',
+                'password' => Hash::make('webmaster')
             ]
         ]);
     }

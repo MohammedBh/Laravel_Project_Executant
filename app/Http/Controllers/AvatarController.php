@@ -39,7 +39,7 @@ class AvatarController extends Controller
     {
 
         if (Avatar::all()->count() === 6) {
-            return redirect()->back()->with('warning', "Il n'y a plus de place pour un avatar");
+            return redirect()->back()->with('warning', "Vous ne pouvez ajouter qu'un maximum de 5 avatars.");
         } else {
             $store = new Avatar;
             Storage::put('public/img/', $request->file('src'));
