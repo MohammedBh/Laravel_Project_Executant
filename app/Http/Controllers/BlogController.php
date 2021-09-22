@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +27,9 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Blog $blog)
     {
+        $this->authorize('blog-create', $blog);
         return view('pages.blog.create');
     }
 
@@ -42,6 +44,7 @@ class BlogController extends Controller
         $store = new Blog;
         $store->title = $request->title;
         $store->content = $request->content;
+        $store->user_id = Auth::user()->id;
         $store->save();
         return redirect('/blog')->with('success', 'Poste créé avec succès !');
     }
@@ -66,9 +69,9 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        $blogs = Blog::find($id);
-        $this->authorize('blog-edit');
-        return view('pages.blog.edit', compact('blogs'));
+        $blog = Blog::find($id);
+        $this->authorize('blog-edit',$blog);
+        return view('pages.blog.edit', compact('blog'));
     }
 
     /**
@@ -93,11 +96,10 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Blog $blog)
     {
-        $destroy = Blog::find($id);
-        $this->authorize('blog-delete');
-        $destroy -> delete();
+        $this->authorize('blog-delete', $blog);
+        $blog -> delete();
         return redirect('/blog')->with('success', 'Poste supprimé avec succès !');
     }
 }

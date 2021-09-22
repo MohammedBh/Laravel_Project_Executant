@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -35,8 +35,6 @@ Route::get('/gallery', function () {
 });
 
 Route::resource('user', DashboardController::class);
-
-
 Route::resource('avatar', AvatarController::class)->middleware(['admin']);
 Route::resource('category', CategoryController::class)->middleware(['admin']);
 Route::resource('image', ImageController::class)->middleware(['admin']);

@@ -37,7 +37,6 @@ class AvatarController extends Controller
      */
     public function store(Request $request)
     {
-
         if (Avatar::all()->count() === 6) {
             return redirect()->back()->with('warning', "Vous ne pouvez ajouter qu'un maximum de 5 avatars.");
         } else {

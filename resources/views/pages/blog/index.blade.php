@@ -19,16 +19,18 @@
             @include('partials.sidebar')
         </section>
         <section class="w-full h-full">
-            <a href="/blog/create">
-                <button
-                    class="px-5 py-3 mt-6 ml-6 font-semibold text-gray-100 transition-colors duration-200 transform bg-yellow-500 rounded-lg hover:bg-yellow-400"><svg
-                        xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </button>
-            </a>
+            @can('blog-create')
+                <a href="{{route('blog.create')}}">
+                    <button
+                        class="px-5 py-3 mt-6 ml-6 font-semibold text-gray-100 transition-colors duration-200 transform bg-yellow-500 rounded-lg hover:bg-yellow-400"><svg
+                            xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                </a>
+            @endcan
             <div class="mb-6 mt-6">
                 @include('partials.flash')
             </div>
@@ -41,25 +43,25 @@
                             dark:text-white md:text-3xl">
                                 {{ $blog->title }}</h2>
                             <p class="mt-4 text-gray-600 dark:text-gray-400">{{ Str::limit($blog->content, 100) }} <a
-                                    href="/blog/{{ $blog->id }}" class="ml-2 text-blue-500 hover:underline">Read
+                                    href="{{route('blog.show',$blog->id)}}" class="ml-2 text-blue-500 hover:underline">Read
                                     More</a></p>
 
                             <div class="flex mt-8 gap-3">
-                                @can('blog-edit')
+                                @can('blog-edit', $blog)
                                     <div>
-                                        <a href="/blog/{{ $blog->id }}/edit"
+                                        <a href="{{route('blog.edit',$blog->id)}}"
                                             class="px-4 py-1 font-semibold text-gray-100 transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500">Edit</a>
                                     </div>
                                 @endcan
-                                @can('blog-delete')
-                                <div>
-                                    <form action="/blog/{{ $blog->id }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button> <a
-                                                class="px-4 py-1 font-semibold text-gray-100 transition-colors duration-200 transform bg-red-600 rounded-md hover:bg-red-500">Delete</a></button>
-                                    </form>
-                                </div>
+                                @can('blog-delete', $blog)
+                                    <div>
+                                        <form action="/blog/{{ $blog->id }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button> <a
+                                                    class="px-4 py-1 font-semibold text-gray-100 transition-colors duration-200 transform bg-red-600 rounded-md hover:bg-red-500">Delete</a></button>
+                                        </form>
+                                    </div>
                                 @endcan
                             </div>
                         </div>

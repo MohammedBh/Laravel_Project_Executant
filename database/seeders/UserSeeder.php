@@ -67,8 +67,17 @@ class UserSeeder extends Seeder
                 'age' => '34',
                 'avatar_id' => 3,
                 'role_id' => 3,
-                'email' => 'webmaster@webmaster.com',
-                'password' => Hash::make('webmaster')
+                'email' => 'web@web.com',
+                'password' => Hash::make('web')
+            ],
+            [
+                'name' => 'Blogger2',
+                'lastname' => 'Blg2',
+                'age' => '34',
+                'avatar_id' => 3,
+                'role_id' => 3,
+                'email' => 'web2@web.com',
+                'password' => Hash::make('web')
             ]
         ]);
     }
